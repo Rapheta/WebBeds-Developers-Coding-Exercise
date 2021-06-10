@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using AutoMapper;
 using CheapAwesome.Core.Interfaces;
 using CheapAwesome.Core.Services;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 namespace CheapAwesome.Api
@@ -39,6 +42,16 @@ namespace CheapAwesome.Api
             services.AddSingleton(Configuration);
 
             services.AddHttpClient();
+
+            services.AddSwaggerGen(doc =>
+            {
+                doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Cheap Awesome API", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                doc.IncludeXmlComments(xmlPath);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +65,15 @@ namespace CheapAwesome.Api
             app.UseHttpsRedirection();
 
             app.UseSerilogRequestLogging();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cheap Awesome API V1");
+                options.RoutePrefix = string.Empty;
+            });
+
 
             app.UseRouting();
 

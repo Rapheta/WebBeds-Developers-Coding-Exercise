@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CheapAwesome.Core.DTOs;
 using CheapAwesome.Core.Interfaces;
-using CheapAwesome.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace CheapAwesome.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]/[action]/{destinationId?}/{nights?}")]
     [ApiController]
     public class AvailabilityController : ControllerBase
@@ -31,7 +28,13 @@ namespace CheapAwesome.Api.Controllers
             _configuration = configuration;
             _logger = logger;
         }
-        
+
+        /// <summary>
+        ///     Retrieve all availabilities
+        /// </summary>
+        /// <param name="destinationId">Destination number</param>
+        /// <param name="nights">Number of nights</param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
