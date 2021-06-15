@@ -7,6 +7,8 @@
 - Email: rafael.castelletginard@gmail.com
 - LinkedIn: https://www.linkedin.com/in/rafael-castellet-ginard/
 
+---------------------------------------------
+
 **Installation**
 
 - Visual Studio 2019
