@@ -3,7 +3,6 @@
 **About me**
 
 - Name: Rafael Castellet Ginard
-- Phone number: (+34) 653114707
 - Email: rafael.castelletginard@gmail.com
 - LinkedIn: https://www.linkedin.com/in/rafael-castellet-ginard/
 
